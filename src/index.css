@@ -1,0 +1,45 @@
+.chatbody {
+  width: 300px;
+  border: solid 2px #ccc;
+  font-size: 16px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.top {
+  display: flex;
+  padding: 0.5em 1em;
+  align-items: center;
+  background: #71c594;
+  color: #fff;
+}
+
+.avatar {
+  border: solid 2px #fff;
+  border-radius: 100%;
+  line-height: 0;
+  padding: 0.3em;
+  margin-right: 1em;
+  background: #fff;
+}
+
+.chat_area {
+  height: 350px;
+  padding: 1em;
+}
+
+.chatter {
+  display: flex;
+  align-items: flex-end;
+  margin: 1em auto;
+}
+
+.balloon {
+  background: #ccc;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.chatter.customer {
+  justify-content: flex-end;
+}
