@@ -8,30 +8,9 @@ function Top(props) {
   return (
     <div className="top">
         <div className="avatar">
-        {botIdendity.avatar}
+          {botIdendity.avatar}
         </div>
         <span>{botIdendity.headerTxt}</span>
-    </div>
-  );
-}
-
-function ChatArea() {
-  return (
-    <div className="chat_area">
-      <div className="chatter support">
-        <div className="avatar">{botIdendity.avatar}</div>
-        <div className="balloon">Hello dear customer!</div>
-      </div>
-      <div className="chatter customer">
-        <div className="balloon">pls help</div>
-      </div>
-    </div>
-  );
-}
-
-function Bottom() {
-  return (
-    <div className="bottom">
     </div>
   );
 }
@@ -41,14 +20,132 @@ const botIdendity = {
   headerTxt: 'Support'
 }
 
+const qAndA = {
+  bot: 'Hello, what can I do for you?',
+  choices: [
+    'question1',
+    'question2',
+    'question3'
+  ],
+  sub: [
+    {
+      bot: 'question1: here are your choices',
+      choices: [
+        'choice1',
+        'choice2'
+      ],
+      sub: [
+        {
+          bot: 'choice1: here are your choices',
+          choices: [
+            'sub1',
+            'sub2'
+          ],
+          sub: [
+            {
+              bot: [
+                'you chose sub1',
+                'contact phone is 000-0000-0000',
+                'check this url for more info: sample.com',
+              ]
+            },
+            {
+              bot: [
+                'you chose sub2',
+                'contact phone is 000-0000-0000',
+                'check this url for more info: sample.com',
+              ]
+            }
+          ]
+        },
+        {
+          bot: 'choice2: this is the end'
+        }
+      ]
+    },
+    {
+      bot: 'question2: here are your choices',
+      choices: [
+        'choice1',
+        'choice2'
+      ],
+      sub: [
+        {
+          bot: 'choice1 was chosen'
+        },
+        {
+          bot: 'choice2 was chosen'
+        }
+      ]
+    },
+    {
+      bot: 'question3: this is a sentence',
+    }
+  ]
+};
+
 
 class ChatBot extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selection: qAndA,
+      chats: [qAndA.bot]
+
+    };
+  }
+
+  showChoices(selection) {
+    if('choices' in selection) {
+      return selection.choices.map((item,i) => {
+        return <span key={i} className="choice" onClick={() => this.handleClick(i)}>{item}</span>
+      });
+    } else {
+      return <span className="choice" onClick={() => this.handleClick(-1)}>repeat</span>
+    }
+  }
+
+  updateChat(chats) {
+    return chats.map((item,i) => {
+      return (
+        <div className="chatter support" key={i}>
+          <div className="avatar">{botIdendity.avatar}</div>
+          <div className="balloon">{item}</div>
+        </div>
+      );
+    }).reverse();
+  }
+
+  handleClick(i) {
+    let { chats, selection } = this.state;
+    if(i===-1) {
+      selection = qAndA;
+    } else {
+      selection = selection.sub[i];
+    }
+    chats.push(selection.bot);
+    this.setState({
+      selection: selection,
+      chats: chats
+    });
+  }
+
   render() {
+    const {chats, selection} = this.state;
+    
     return (
       <div className="chatbody">
       <Top/>
-      <ChatArea/>
-      <Bottom/>
+      
+      <div className="chat_area">
+        {this.updateChat(chats)}
+      </div>
+
+      <div className="bottom">
+        <div className="choices">
+          {this.showChoices(selection)}
+        </div>
+      </div>
       </div>
     );
   }

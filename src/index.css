@@ -4,6 +4,10 @@
   font-size: 16px;
   border-radius: 10px;
   overflow: hidden;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 .top {
@@ -24,14 +28,20 @@
 }
 
 .chat_area {
-  height: 350px;
+  height: 100%;
   padding: 1em;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: auto;
+}
+.chat_area::-webkit-scrollbar {
+  display: none;
 }
 
 .chatter {
   display: flex;
   align-items: flex-end;
-  margin: 1em auto;
+  margin: 1em 0;
 }
 
 .balloon {
@@ -42,4 +52,18 @@
 
 .chatter.customer {
   justify-content: flex-end;
+}
+
+.choice {
+  padding: 0.5em;
+  background: #dfe1f7;
+  margin: 5px;
+  display: inline-block;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.bottom {
+  padding: 2px 1rem;
+  border-top: 1px solid #e6e6e6;
 }
