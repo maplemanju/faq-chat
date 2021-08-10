@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import qAndA from './qa_scripts/default.json'
 
 
@@ -16,24 +17,27 @@ function Top(props) {
   );
 }
 
-function Loader() {
-  return (
-  <div className="chatter support chat_loading" >
-    <div className="avatar">{botIdendity.avatar}</div>
-    <div className="balloon"><span className="loader"></span></div>
-  </div>
-  );
-}
 function ChatArea(props) {
+  const loader = <span className="loader"></span>;
   return (
-    
     <div className="chat_area">
-     { props.loading ? <Loader /> : null }
-      {props.chats.map((item,i) => {
+      {props.chats.map((item,i, chat_ar) => {
+        const isLoading = props.loading && chat_ar.length - 1 === i;
         return (
-          <div className="chatter support" key={i}>
+          <div className="chatter support" key={i} id={i}>
             <div className="avatar">{botIdendity.avatar}</div>
-            <div className="balloon">{item}</div>
+            <SwitchTransition>
+            <CSSTransition
+              key={isLoading ? loader : item}
+              classNames="fade"
+              addEndListener={(node, done) => {
+              node.addEventListener("transitionend", done, false);
+            }}>
+              <div className={ isLoading ? "balloon fade" : "balloon"}>
+              { isLoading ? loader : item }
+              </div>
+            </CSSTransition>
+            </SwitchTransition>
           </div>
         );
       }).reverse()}
@@ -84,7 +88,7 @@ class ChatBot extends React.Component {
         chats: chats,
         loading: false
       });
-    }, 1000);
+    }, 500);
   }
 
   render() {
