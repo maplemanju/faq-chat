@@ -77,6 +77,19 @@
   background: inherit;
 }
 
+.balloon .choices {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.choices > li {
+  padding: 0.2em 0.5em;
+  background: #e6e6e6;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+
 /* loader */
 .loader,
 .loader:before,

@@ -20,41 +20,48 @@ function Top(props) {
 class ChatArea extends React.Component {
   constructor(props) {
     super(props)
-    this.newMsgref = React.createRef()
+   // this.newMsgref = React.createRef()
   }
+
+  scrollToBottom(element, behavior) {
+    element.scrollIntoView({behavior: behavior, block: "end"});
+  }  
 
   render() {
     const loader = <span className="loader"></span>;
-    const scrollToBottom = (element, behavior) => {
-      element.scrollIntoView({behavior: behavior, block: "end"});
-    }  
+    const {loading, chatType, newRef, chats} = this.props;
+    
     return (
-    <div className="chat_area">
-    {this.props.chats.map((item,i, chat_ar) => {
-      const isLoading = this.props.loading && chat_ar.length - 1 === i;
-      return (
-        <div className="chatter support" key={i} ref={chat_ar.length - 1 === i? this.newMsgref : ''}>
-        <div className="avatar">{botIdendity.avatar}</div>
-          <div className="balloon">
-          <SwitchTransition>
-          <CSSTransition
-            key={isLoading}
-            classNames="fade"
-            onExit={()=>scrollToBottom(this.newMsgref.current, "smooth")}
-            onEnter={()=>scrollToBottom(this.newMsgref.current, "auto")}
-            addEndListener={(node, done) => {
-            node.addEventListener("transitionend", done, false);
-          }}>
-          <div>
-            { isLoading ? loader : item }
+      <div className="chat_area">
+      {chats.map((item,i, chat_ar) => {
+        const chatter = chatType[i];
+        const isLoading = loading && chat_ar.length - 1 === i;
+        const chatClass = 'chatter ' + chatter;
+        const avatar = chatter === 'support' ? <div className="avatar">{botIdendity.avatar}</div>: '';
+
+        return (
+          <div className={chatClass} key={i} ref={chat_ar.length - 1 === i? newRef : ''}>
+            {avatar}
+            <div className="balloon">
+              <SwitchTransition>
+              <CSSTransition
+                key={isLoading}
+                classNames="fade"
+                onExit={() => this.scrollToBottom(newRef.current, "smooth")}
+                onEnter={() => this.scrollToBottom(newRef.current, "auto")}
+                addEndListener={(node, done) => {
+                node.addEventListener("transitionend", done, false);
+              }}>
+              <div>
+                { isLoading ? loader : item }
+              </div>
+              </CSSTransition>
+              </SwitchTransition>
+            </div>
           </div>
-          </CSSTransition>
-          </SwitchTransition>
-        </div>
-        </div>
-      );
-    }).reverse()}
-    </div>
+        );
+      }).reverse()}
+      </div>
     ); //return
   } //render
 }
@@ -67,54 +74,81 @@ const botIdendity = {
 class ChatBot extends React.Component {
   constructor(props) {
     super(props);
+    this.newMsgref = React.createRef();
     this.state = {
       selection: qAndA,
       chats: [qAndA.bot],
-      loading: false
+      loading: false,
+      chatType: ["support"]
     };
   }
 
-  showChoices(selection) {
-    if('choices' in selection) {
-      return selection.choices.map((item,i) => {
-        return <span key={i} className="choice" onClick={() => this.handleClick(i)}>{item}</span>
-      });
-    } else {
-      return <span className="choice" onClick={() => this.handleClick(-1)}>repeat</span>
-    }
+  componentDidMount() {
+    this.state.chats.push(this.choiceList(this.state.selection.choices));
+    this.state.chatType.push('customer');
+    this.setState({
+      chats: this.state.chats,
+      chatType: this.state.chatType
+    });
   }
 
   handleClick(i) {
-    let { chats, selection } = this.state;
+    let { chats, selection, chatType } = this.state;
     if(i===-1) {
       selection = qAndA;
     } else {
       selection = selection.sub[i];
     }
-    chats.push(selection.bot);
 
+    //push bot chat
+    chats.push(selection.bot);
+    chatType.push('support');
     this.setState({loading: true});
     setTimeout(() => {
       this.setState({
         selection: selection,
         chats: chats,
-        loading: false
+        loading: false,
+        chatType: chatType
       });
     }, 300);
+
+    //push choices chat
+    if (selection.choices) {
+      setTimeout(() => {
+        chatType.push('customer');
+        chats.push(this.choiceList(selection.choices));
+        this.setState({
+          chats: chats,
+          chatType: chatType
+        });
+        this.newMsgref.current.scrollIntoView({behavior: "smooth", block: "end"});
+      }, 3000);
+    }
   }
 
+  choiceList(choices) {
+    return (
+    <ul className="choices">
+    { choices.map((choice,i) => {
+        return <li key={i} onClick={() => this.handleClick(i)}>{choice}</li>
+    }) }
+    </ul>
+    )
+  }
+  
   render() {
-    const {chats, selection, loading} = this.state;
+    const {chats, selection, loading, chatType} = this.state;
     
     return (
       <div className="chatbody">
       <Top/>
-      <ChatArea chats={chats} loading={loading}/>
-      <div className="bottom">
+      <ChatArea chats={chats} loading={loading} chatType={chatType} newRef={this.newMsgref}/>
+      {/* <div className="bottom">
         <div className="choices">
           {this.showChoices(selection)}
         </div>
-      </div>
+      </div> */}
       </div>
     );
   }
