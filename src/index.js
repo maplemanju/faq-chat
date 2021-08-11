@@ -17,32 +17,46 @@ function Top(props) {
   );
 }
 
-function ChatArea(props) {
-  const loader = <span className="loader"></span>;
-  return (
+class ChatArea extends React.Component {
+  constructor(props) {
+    super(props)
+    this.newMsgref = React.createRef()
+  }
+
+  render() {
+    const loader = <span className="loader"></span>;
+    const scrollToBottom = (element, behavior) => {
+      element.scrollIntoView({behavior: behavior, block: "end"});
+    }  
+    return (
     <div className="chat_area">
-      {props.chats.map((item,i, chat_ar) => {
-        const isLoading = props.loading && chat_ar.length - 1 === i;
-        return (
-          <div className="chatter support" key={i} id={i}>
-            <div className="avatar">{botIdendity.avatar}</div>
-            <SwitchTransition>
-            <CSSTransition
-              key={isLoading ? loader : item}
-              classNames="fade"
-              addEndListener={(node, done) => {
-              node.addEventListener("transitionend", done, false);
-            }}>
-              <div className={ isLoading ? "balloon fade" : "balloon"}>
-              { isLoading ? loader : item }
-              </div>
-            </CSSTransition>
-            </SwitchTransition>
+    {this.props.chats.map((item,i, chat_ar) => {
+      const isLoading = this.props.loading && chat_ar.length - 1 === i;
+      return (
+        <div className="chatter support" key={i} ref={chat_ar.length - 1 === i? this.newMsgref : ''}>
+        <div className="avatar">{botIdendity.avatar}</div>
+          <div className="balloon">
+          <SwitchTransition>
+          <CSSTransition
+            key={isLoading}
+            classNames="fade"
+            onExit={()=>scrollToBottom(this.newMsgref.current, "smooth")}
+            onEnter={()=>scrollToBottom(this.newMsgref.current, "auto")}
+            addEndListener={(node, done) => {
+            node.addEventListener("transitionend", done, false);
+          }}>
+          <div>
+            { isLoading ? loader : item }
           </div>
-        );
-      }).reverse()}
+          </CSSTransition>
+          </SwitchTransition>
+        </div>
+        </div>
+      );
+    }).reverse()}
     </div>
-  );
+    ); //return
+  } //render
 }
 
 const botIdendity = {
@@ -57,7 +71,6 @@ class ChatBot extends React.Component {
       selection: qAndA,
       chats: [qAndA.bot],
       loading: false
-
     };
   }
 
@@ -81,14 +94,13 @@ class ChatBot extends React.Component {
     chats.push(selection.bot);
 
     this.setState({loading: true});
-
     setTimeout(() => {
       this.setState({
         selection: selection,
         chats: chats,
         loading: false
       });
-    }, 500);
+    }, 300);
   }
 
   render() {
