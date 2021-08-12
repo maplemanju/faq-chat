@@ -47,6 +47,10 @@
   padding: 1em 0;
 }
 
+.chat_area .chatter:last-child {
+  padding-top: 400px;
+}
+
 .balloon {
   background: #ccc;
   border-radius: 10px;
@@ -70,11 +74,40 @@
 }
 
 .bottom {
-  padding: 2px 1rem;
+  padding: 0.5rem 1rem;
   border-top: 1px solid #e6e6e6;
   position: relative;
   z-index: 2;
   background: inherit;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.repeat_btn {
+  color: #ccc;
+  fill: #ccc;
+  border: none;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 76px;
+  transition: 0.3s ease;
+}
+
+.repeat_btn:hover {
+  background: #edffe8;
+  color: #7b7b7b;
+  fill: #7b7b7b;
+}
+
+.repeat_btn svg {
+  transition: 0.8s;
+}
+
+.repeat_btn:active svg {
+  transform: rotate(360deg);
+  transition: 0s;
 }
 
 .balloon .choices {

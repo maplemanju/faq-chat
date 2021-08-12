@@ -76,25 +76,43 @@ class ChatBot extends React.Component {
     super(props);
     this.newMsgref = React.createRef();
     this.state = {
-      selection: qAndA,
-      chats: [qAndA.bot],
-      loading: false,
-      chatType: ["support"]
+      selection: qAndA, //current index on json
+      chats: [qAndA.bot], // chat array
+      chatType: ["support"], // support or customer
+      loading: false, // ellipsis loading
     };
   }
 
   componentDidMount() {
+    this.scrollToBottom(this.newMsgref.current, "auto");
     this.state.chats.push(this.choiceList(this.state.selection.choices));
     this.state.chatType.push('customer');
-    this.setState({
-      chats: this.state.chats,
-      chatType: this.state.chatType
-    });
+    setTimeout(() => {
+      this.setState({
+        chats: this.state.chats,
+        chatType: this.state.chatType,
+      });
+     this.scrollToBottom(this.newMsgref.current, "smooth");
+    }, 600);
+  }
+
+  scrollToBottom(element, behavior) {
+    element.scrollIntoView({behavior: behavior, block: "end"});
+  }  
+
+  choiceList(choices) {
+    return (
+    <ul className="choices">
+    { choices.map((choice,i) => {
+        return <li key={i} onClick={() => this.handleClick(i)}>{choice}</li>
+    }) }
+    </ul>
+    )
   }
 
   handleClick(i) {
     let { chats, selection, chatType } = this.state;
-    if(i===-1) {
+    if(i<0) {
       selection = qAndA;
     } else {
       selection = selection.sub[i];
@@ -122,33 +140,26 @@ class ChatBot extends React.Component {
           chats: chats,
           chatType: chatType
         });
-        this.newMsgref.current.scrollIntoView({behavior: "smooth", block: "end"});
-      }, 3000);
+        this.scrollToBottom(this.newMsgref.current, "smooth");
+      }, 2000);
+    } else {
+      //
     }
-  }
-
-  choiceList(choices) {
-    return (
-    <ul className="choices">
-    { choices.map((choice,i) => {
-        return <li key={i} onClick={() => this.handleClick(i)}>{choice}</li>
-    }) }
-    </ul>
-    )
   }
   
   render() {
-    const {chats, selection, loading, chatType} = this.state;
+    const {chats, loading, chatType} = this.state;
     
     return (
       <div className="chatbody">
       <Top/>
       <ChatArea chats={chats} loading={loading} chatType={chatType} newRef={this.newMsgref}/>
-      {/* <div className="bottom">
-        <div className="choices">
-          {this.showChoices(selection)}
-        </div>
-      </div> */}
+      <div className="bottom">
+        <button class="repeat_btn" onClick={() => this.handleClick(-1)}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"><path d="M13.5 2c-5.629 0-10.212 4.436-10.475 10h-3.025l4.537 5.917 4.463-5.917h-2.975c.26-3.902 3.508-7 7.475-7 4.136 0 7.5 3.364 7.5 7.5s-3.364 7.5-7.5 7.5c-2.381 0-4.502-1.119-5.876-2.854l-1.847 2.449c1.919 2.088 4.664 3.405 7.723 3.405 5.798 0 10.5-4.702 10.5-10.5s-4.702-10.5-10.5-10.5z"/></svg>
+          repeat
+        </button>
+      </div>
       </div>
     );
   }
