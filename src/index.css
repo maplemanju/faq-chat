@@ -1,3 +1,12 @@
+:root {
+  --main: #71c594;
+  --sub: #ccc;
+}
+
+body {
+  margin: 0
+}
+
 .chatbody {
   width: 300px;
   border: solid 2px #ccc;
@@ -15,7 +24,7 @@
   display: flex;
   padding: 0.5em 1em;
   align-items: center;
-  background: #71c594;
+  background: var(--main);
   color: #fff;
 }
 
@@ -52,7 +61,7 @@
 }
 
 .balloon {
-  background: #ccc;
+  background: var(--sub);
   border-radius: 10px;
   padding: 1em;
   min-width: 70px;
@@ -92,13 +101,19 @@
   align-items: center;
   justify-content: space-around;
   width: 76px;
-  transition: 0.3s ease;
+  transition: 0.3s;
 }
 
-.repeat_btn:hover {
+.repeat_btn:hover, .ask_repeat {
   background: #edffe8;
   color: #7b7b7b;
   fill: #7b7b7b;
+}
+
+.repeat_btn:disabled {
+  color: #ccc;
+  fill: #ccc;
+  background: #fff;
 }
 
 .repeat_btn svg {
@@ -116,11 +131,21 @@
   list-style: none;
 }
 
-.choices > li {
+.choices > * {
   padding: 0.2em 0.5em;
   background: #e6e6e6;
   margin-bottom: 2px;
-  cursor: pointer;
+  display: block;
+  border: 0;
+  border: solid 2px transparent;
+}
+.choices > *:last-child {
+  margin-bottom: 0;
+}
+
+.chosen {
+  border-color: var(--main);
+  color: inherit;
 }
 
 /* loader */
