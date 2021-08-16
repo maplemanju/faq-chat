@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import BotStrings from "./BotStrings";
-import qAndA from './chatstrings.json'
+import qAndA from './chatstrings'
 
 function Top(props) {
   return (
@@ -25,7 +25,7 @@ function ChatArea(props) {
 
   return (
     <div className="chat_area">
-    {chats.map((item,i, chat_ar) => {
+    {chats.map((item, i, chat_ar) => {
       const chatter = chatType[i];
       const isLoading = loading && chat_ar.length - 1 === i;
       const chatClass = 'chatter ' + chatter;
@@ -70,9 +70,9 @@ function RepeatButton(props) {
 export default class ChatBot extends React.Component {
   constructor(props) {
     super(props);
-    let sitename = new URLSearchParams(window.location.search).get('site');
-    sitename = sitename ? sitename : 'default';
-    let data = qAndA[sitename];
+    let siteid = new URLSearchParams(window.location.search).get('site');
+    siteid = siteid ? siteid : 'default';
+    let data = qAndA[siteid];
     data = data ? data : qAndA.default;
     this.newMsgref = React.createRef();
     this.state = {
@@ -170,7 +170,7 @@ export default class ChatBot extends React.Component {
     }
   }
 
-  render() { 
+  render() {
     const {chats, loading, chatType, endOfChat, disableClick} = this.state;
     return (
       <div className="chatbody">
