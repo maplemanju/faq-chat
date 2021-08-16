@@ -8,12 +8,11 @@ body {
 }
 
 .chatbody {
-  width: 300px;
+  height: 500px;
   border: solid 2px #ccc;
   font-size: 16px;
   border-radius: 10px;
   overflow: hidden;
-  height: 400px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -104,7 +103,7 @@ body {
   transition: 0.3s;
 }
 
-.repeat_btn:hover, .ask_repeat {
+.ask_repeat {
   background: #edffe8;
   color: #7b7b7b;
   fill: #7b7b7b;

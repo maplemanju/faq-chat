@@ -103,12 +103,12 @@ export default class ChatBot extends React.Component {
     element.scrollIntoView({behavior: behavior, block: "end"});
   }  
 
-  choiceList(choices, chosen = -1) {
+  choiceList(choices, chosen = -1, disableAll = false) {
     return (
     <div className="choices">
     { choices.map((choice,i) => {
         const chosenClass = i===chosen ? 'chosen' : '';
-        return <button key={i} className={chosenClass} disabled={chosen>-1} onClick={() => this.handleClick(i)}>{choice}</button>
+        return <button key={i} className={chosenClass} disabled={disableAll} onClick={() => this.handleClick(i)}>{choice}</button>
     }) }
     </div>
     )
@@ -116,7 +116,7 @@ export default class ChatBot extends React.Component {
 
   disablePastChoices(choice, choices) {
     let { chats } = this.state;
-    chats[chats.length - 1] = this.choiceList(choices, choice);
+    chats[chats.length - 1] = this.choiceList(choices, choice, true);
     this.setState({
       chats: chats
     });
@@ -130,10 +130,13 @@ export default class ChatBot extends React.Component {
       endOfChat: false
     });
 
+    if(!this.state.endOfChat) {
+      this.disablePastChoices(i, selection.choices);
+    }
+
     if(i<0) {
       selection = this.state.data;
     } else {
-      this.disablePastChoices(i, selection.choices);
       selection = selection.sub[i];
     }
 
