@@ -1,6 +1,9 @@
 :root {
-  --main: #71c594;
-  --sub: #ccc;
+  --header: #71c594;
+  --balloon: #CADB8F;
+  --back: #fdfff1;
+  --border: #799D7C;
+  --standOut: #F9C9D7;
 }
 
 body {
@@ -11,34 +14,50 @@ body {
   height: 500px;
   max-width: 500px;
   margin: auto;
-  border: solid 2px #ccc;
+  box-shadow: 0 0 6px #dcdcdc;
+  border: solid 3px var(--border);
   font-size: 16px;
   border-radius: 10px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  background: #fff;
+  background: var(--back);
   position: relative;
+  font-family: sans-serif;
+  color: #333;
 }
 
 .top {
   display: flex;
   padding: 0.5em 1em;
   align-items: center;
-  background: var(--main);
+  background: var(--header);
   color: #fff;
   position: relative;
-  z-index: 2
+  z-index: 2;
+  border-bottom: solid var(--border);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 }
 
 .avatar {
   border: solid 2px #fff;
   border-radius: 100%;
   line-height: 0;
-  padding: 0.3em;
   margin-right: 1em;
   background: #fff;
+}
+
+.top .avatar {
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+}
+
+.avatar img {
+  object-fit: cover;
+  padding: 0.3em;
 }
 
 .chat_area {
@@ -65,14 +84,14 @@ body {
 }
 
 .chat_area .chatter:last-child {
-  padding-bottom: 50px;
+  padding-bottom: 60px;
 } 
 .chat_area .chatter:first-child {
   padding-top: 400px;
 } 
 
 .balloon {
-  background: var(--sub);
+  background: var(--balloon);
   border-radius: 10px;
   padding: 1em;
   min-width: 70px;
@@ -84,15 +103,6 @@ body {
   justify-content: flex-end;
 }
 
-.choice {
-  padding: 0.5em;
-  background: #dfe1f7;
-  margin: 5px;
-  display: inline-block;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
 .bottom {
   padding: 0.5rem 1rem;
   border-top: 1px solid #e6e6e6;
@@ -101,12 +111,13 @@ body {
   background: inherit;
   display: flex;
   justify-content: flex-end;
-
   position: absolute;
   bottom: 0;
   width: 100%;
   box-sizing:border-box;
-  z-index:2
+  z-index:2;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 .repeat_btn {
@@ -117,12 +128,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 76px;
+  width: 74px;
   transition: 0.3s;
+  font-size:0.8em;
+  padding: 6px 5px;
 }
 
 .ask_repeat {
-  background: #edffe8;
+  background: var(--standOut);
   color: #7b7b7b;
   fill: #7b7b7b;
 }
@@ -149,20 +162,22 @@ body {
 }
 
 .choices > * {
-  padding: 0.2em 0.5em;
-  background: #e6e6e6;
-  margin-bottom: 2px;
+  padding: 0.5em;
+  min-width: 100px;
+  background: var(--back);
+  margin-bottom: 5px;
   display: block;
   width: 100%;
   border: 0;
   border: solid 2px transparent;
+  font-size: 0.9em;
 }
 .choices > *:last-child {
   margin-bottom: 0;
 }
 
 .chosen {
-  border-color: var(--main);
+  border-color: var(--standOut);
   color: inherit;
 }
 

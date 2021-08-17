@@ -1,133 +1,64 @@
 {
-  "default" :
-  {
-    "bot": "Hello, what can I do for you?",
-    "choices": [
-      "question1",
-      "question2",
-      "question3"
-    ],
-    "sub": [
-      {
-        "bot": "question1: here are your choices",
-        "choices": [
-          "choice1",
-          "choice2"
-        ],
-        "sub": [
-          {
-            "bot": "choice1: here are your choices",
-            "choices": [
-              "sub1",
-              "sub2"
-            ],
-            "sub": [
-              {
-                "bot": [
-                  "you chose sub1",
-                  "contact phone is 000-0000-0000",
-                  "check this url for more info: sample.com"
-                ]
-              },
-              {
-                "bot": [
-                  "you chose sub2",
-                  "contact phone is 000-0000-0000",
-                  "check this url for more info: sample.com"
-                ]
-              }
-            ]
-          },
-          {
-            "bot": "choice2: this is the end"
-          }
-        ]
-      },
-      {
-        "bot": "question2: here are your choices",
-        "choices": [
-          "choice1",
-          "choice2"
-        ],
-        "sub": [
-          {
-            "bot": "choice1 was chosen"
-          },
-          {
-            "bot": "choice2 was chosen"
-          }
-        ]
-      },
-      {
-        "bot": "question3: this is a sentence"
-      }
-    ]
-  },
-  
-  "amayadori" : 
-  {
-    "bot": "Amayadori?",
-    "choices": [
-      "question1",
-      "question2",
-      "question3"
-    ],
-    "sub": [
-      {
-        "bot": "question1: here are your choices",
-        "choices": [
-          "choice1",
-          "choice2"
-        ],
-        "sub": [
-          {
-            "bot": "choice1: here are your choices",
-            "choices": [
-              "sub1",
-              "sub2"
-            ],
-            "sub": [
-              {
-                "bot": [
-                  "you chose sub1",
-                  "contact phone is 000-0000-0000",
-                  "check this url for more info: sample.com"
-                ]
-              },
-              {
-                "bot": [
-                  "you chose sub2",
-                  "contact phone is 000-0000-0000",
-                  "check this url for more info: sample.com"
-                ]
-              }
-            ]
-          },
-          {
-            "bot": "choice2: this is the end"
-          }
-        ]
-      },
-      {
-        "bot": "question2: here are your choices",
-        "choices": [
-          "choice1",
-          "choice2"
-        ],
-        "sub": [
-          {
-            "bot": "choice1 was chosen"
-          },
-          {
-            "bot": "choice2 was chosen"
-          }
-        ]
-      },
-      {
-        "bot": "question3: this is a sentence"
-      }
-    ]
-  }
-  
+  "bot": "Hello, what can I do for you?",
+  "choices": [
+    "question1",
+    "question2",
+    "question3"
+  ],
+  "sub": [
+    {
+      "bot": "question1: here are your choices",
+      "choices": [
+        "choice1",
+        "choice2"
+      ],
+      "sub": [
+        {
+          "bot": "choice1: here are your choices",
+          "choices": [
+            "sub1",
+            "sub2"
+          ],
+          "sub": [
+            {
+              "bot": [
+                "you chose sub1",
+                "contact phone is 000-0000-0000",
+                "check this url for more info: sample.com"
+              ]
+            },
+            {
+              "bot": [
+                "you chose sub2",
+                "contact phone is 000-0000-0000",
+                "check this url for more info: sample.com"
+              ]
+            }
+          ]
+        },
+        {
+          "bot": "choice2: this is the end"
+        }
+      ]
+    },
+    {
+      "bot": "question2: here are your choices",
+      "choices": [
+        "choice1",
+        "choice2"
+      ],
+      "sub": [
+        {
+          "bot": "choice1 was chosen"
+        },
+        {
+          "bot": "choice2 was chosen"
+        }
+      ]
+    },
+    {
+      "bot": "question3: this is a sentence"
+    }
+  ]
 }
-  
+

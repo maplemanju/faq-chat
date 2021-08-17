@@ -3,8 +3,7 @@ import React from 'react';
 import './index.css';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import BotStrings from "./BotStrings";
-import qAndA from './chatstrings'
-
+import qAndA from './ChatStrings'
 
 smoothscroll.polyfill();
 
@@ -12,7 +11,7 @@ function Top(props) {
   return (
     <div className="top">
         <div className="avatar">
-          <BotStrings needed="avatar" />
+          <BotStrings needed="headerAvatar" width="40" height="53" />
         </div>
         <span><BotStrings needed="headerTxt"/></span>
     </div>
@@ -33,7 +32,7 @@ function ChatArea(props) {
       const chatter = chatType[i];
       const isLoading = loading && chat_ar.length - 1 === i;
       const chatClass = 'chatter ' + chatter;
-      const avatar = chatter === 'support' ? <div className="avatar"><BotStrings needed="avatar" /></div>: '';
+      const avatar = chatter === 'support' ? <div className="avatar"><BotStrings needed="chatterAvatar" width="30" height="30" /></div>: '';
 
       return (
         <div className={chatClass} key={i} ref={chat_ar.length - 1 === i? newRef : null}>
@@ -74,10 +73,7 @@ function RepeatButton(props) {
 export default class ChatBot extends React.Component {
   constructor(props) {
     super(props);
-    let siteid = new URLSearchParams(window.location.search).get('site');
-    siteid = siteid ? siteid : 'default';
-    let data = qAndA[siteid];
-    data = data ? data : qAndA.default;
+    const data = qAndA;
     this.newMsgref = React.createRef();
     this.state = {
       data: data, // main string data
