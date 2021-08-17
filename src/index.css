@@ -135,6 +135,7 @@ body {
   background: #e6e6e6;
   margin-bottom: 2px;
   display: block;
+  width: 100%;
   border: 0;
   border: solid 2px transparent;
 }
