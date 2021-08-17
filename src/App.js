@@ -1,8 +1,12 @@
+import smoothscroll from 'smoothscroll-polyfill';
 import React from 'react';
 import './index.css';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import BotStrings from "./BotStrings";
 import qAndA from './chatstrings'
+
+
+smoothscroll.polyfill();
 
 function Top(props) {
   return (
@@ -20,7 +24,7 @@ function ChatArea(props) {
   const loader = <span className="loader"></span>;
 
   let scrollToBottom = (element, behavior) => {
-    element.scrollIntoView({behavior: behavior, block: "end"})
+   element.scrollIntoView({behavior: behavior, block: "end"})
   }
 
   return (
@@ -39,8 +43,8 @@ function ChatArea(props) {
             <CSSTransition
               key={isLoading}
               classNames="fade"
-              onExit={()=>scrollToBottom(newRef.current, "smooth")}
-              onEnter={()=>scrollToBottom(newRef.current, "auto")}
+              onExit={()=>scrollToBottom(newRef.current,"smooth")}
+              onEnter={()=>scrollToBottom(newRef.current,"auto")}
               addEndListener={(node, done) => {
               node.addEventListener("transitionend", done, false);
             }}>
@@ -52,7 +56,7 @@ function ChatArea(props) {
           </div>
         </div>
       );
-    }).reverse()}
+    })}
     </div>
   ); //return
 }
@@ -100,7 +104,8 @@ export default class ChatBot extends React.Component {
   }
 
   scrollToBottom(element, behavior) {
-    element.scrollIntoView({behavior: behavior, block: "end"});
+   element.scrollIntoView({behavior: behavior, block: "end"});
+  // element.scroll({ top: -10, left: 0, behavior: behavior });
   }  
 
   choiceList(choices, chosen = -1, disableAll = false) {

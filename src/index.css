@@ -17,6 +17,7 @@ body {
   flex-direction: column;
   box-sizing: border-box;
   background: #fff;
+  position: relative;
 }
 
 .top {
@@ -25,6 +26,8 @@ body {
   align-items: center;
   background: var(--main);
   color: #fff;
+  position: relative;
+  z-index: 2
 }
 
 .avatar {
@@ -38,11 +41,17 @@ body {
 
 .chat_area {
   height: 100%;
-  padding: 1em;
+  padding: 0 1em;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   overflow-y: auto;
   transition: 1s ease;
+
+  position: absolute;
+
+  width: 100%;
+  box-sizing:border-box;
+  z-index: 1;
 }
 
 .chat_area::-webkit-scrollbar {
@@ -56,8 +65,11 @@ body {
 }
 
 .chat_area .chatter:last-child {
+  padding-bottom: 50px;
+} 
+.chat_area .chatter:first-child {
   padding-top: 400px;
-}
+} 
 
 .balloon {
   background: var(--sub);
@@ -89,6 +101,12 @@ body {
   background: inherit;
   display: flex;
   justify-content: flex-end;
+
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  box-sizing:border-box;
+  z-index:2
 }
 
 .repeat_btn {
