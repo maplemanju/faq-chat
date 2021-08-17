@@ -1,6 +1,6 @@
-## Greetings!
+# Greetings!
 
-This rule-based chat bot created in React.
+This is rule-based chat bot created in React.
 See the sample on https://faq-chat.amayadori.cloud/
 
 # Getting Started with Create React App
