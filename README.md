@@ -1,3 +1,8 @@
+## Greetings!
+
+This rule-based chat bot created in React.
+See the sample on https://faq-chat.amayadori.cloud/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
