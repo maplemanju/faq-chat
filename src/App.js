@@ -65,7 +65,7 @@ function RepeatButton(props) {
   return (
     <button className={btnClass} disabled={props.disabled} onClick={() => props.handleClick(-1)}>
       <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"><path d="M13.5 2c-5.629 0-10.212 4.436-10.475 10h-3.025l4.537 5.917 4.463-5.917h-2.975c.26-3.902 3.508-7 7.475-7 4.136 0 7.5 3.364 7.5 7.5s-3.364 7.5-7.5 7.5c-2.381 0-4.502-1.119-5.876-2.854l-1.847 2.449c1.919 2.088 4.664 3.405 7.723 3.405 5.798 0 10.5-4.702 10.5-10.5s-4.702-10.5-10.5-10.5z"/></svg>
-      repeat
+      <BotStrings needed="repeatBtn" />
     </button>
   )
 }
@@ -141,18 +141,41 @@ export default class ChatBot extends React.Component {
       selection = selection.sub[i];
     }
 
+    let timeInterval = 300;
+
     //push bot chat
-    chats.push(selection.bot);
-    chatType.push('support');
-    this.setState({loading: true});
-    setTimeout(() => {
-      this.setState({
-        selection: selection,
-        chats: chats,
-        loading: false,
-        chatType: chatType
+    if(Array.isArray(selection.bot)) {
+      selection.bot.map((botItem, k, arr) => {
+        setTimeout(() => {
+          chats.push(botItem);
+          chatType.push('support');
+          this.setState({
+            selection: selection,
+            chats: chats,
+            chatType: chatType
+          });
+          this.scrollToBottom(this.newMsgref.current, "smooth");
+        }, timeInterval);
+        if(arr.length - 1 === k) {
+          timeInterval = timeInterval + 1200;
+        } else {
+          timeInterval = timeInterval + 700;
+        }
       });
-    }, 300);
+    } else {
+      chats.push(selection.bot);
+      chatType.push('support');
+      this.setState({loading: true});
+      setTimeout(() => {
+        this.setState({
+          selection: selection,
+          chats: chats,
+          loading: false,
+          chatType: chatType
+        });
+      }, timeInterval);
+      timeInterval = timeInterval + 1200;
+    }
 
     //push choices chat
     if (selection.choices) {
@@ -165,7 +188,7 @@ export default class ChatBot extends React.Component {
           disableClick: false
         });
         this.scrollToBottom(this.newMsgref.current, "smooth");
-      }, 2000);
+      }, timeInterval);
     } else {
       this.setState({
         disableClick: false,

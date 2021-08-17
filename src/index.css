@@ -11,12 +11,18 @@ body {
 }
 
 .chatbody {
+  line-height: 1.4em;
+  font-family: sans-serif;
+  color: #333;
+  font-size: 16px;
+}
+
+.chatbody {
   height: 500px;
   max-width: 500px;
   margin: auto;
   box-shadow: 0 0 6px #dcdcdc;
   border: solid 3px var(--border);
-  font-size: 16px;
   border-radius: 10px;
   overflow: hidden;
   display: flex;
@@ -24,8 +30,6 @@ body {
   box-sizing: border-box;
   background: var(--back);
   position: relative;
-  font-family: sans-serif;
-  color: #333;
 }
 
 .top {
@@ -39,6 +43,7 @@ body {
   border-bottom: solid var(--border);
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
+  font-weight: bold;
 }
 
 .avatar {
@@ -97,6 +102,7 @@ body {
   min-width: 70px;
   min-height: 40px;
   box-sizing: border-box;
+  white-space: pre-wrap;
 }
 
 .chatter.customer {
@@ -124,11 +130,10 @@ body {
   color: #ccc;
   fill: #ccc;
   border: none;
-  background: #fff;
+  background: inherit;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 74px;
   transition: 0.3s;
   font-size:0.8em;
   padding: 6px 5px;
@@ -143,11 +148,11 @@ body {
 .repeat_btn:disabled {
   color: #ccc;
   fill: #ccc;
-  background: #fff;
 }
 
 .repeat_btn svg {
   transition: 0.8s;
+  margin-right: 0.7em;
 }
 
 .repeat_btn:active svg {

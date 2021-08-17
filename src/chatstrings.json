@@ -1,63 +1,58 @@
 {
-  "bot": "Hello, what can I do for you?",
+  "bot": [
+    "Hello, I am Maya from Amayadori.cloud.\nThis chatbot is rule-based which means that all of my responses will be based on the selection that will be provided for you.\n",
+    "Please choose one!"
+  ],
   "choices": [
-    "question1",
-    "question2",
-    "question3"
+    "Where is this chat-bot app made from?",
+    "Tell me about your other works",
+    "Just checking!"
   ],
   "sub": [
     {
-      "bot": "question1: here are your choices",
+      "bot": "This app is made from ReactJS on Create React App.",
       "choices": [
-        "choice1",
-        "choice2"
+        "How do I install this on my website?",
+        "I want to see the codes!"
       ],
       "sub": [
         {
-          "bot": "choice1: here are your choices",
-          "choices": [
-            "sub1",
-            "sub2"
-          ],
-          "sub": [
-            {
-              "bot": [
-                "you chose sub1",
-                "contact phone is 000-0000-0000",
-                "check this url for more info: sample.com"
-              ]
-            },
-            {
-              "bot": [
-                "you chose sub2",
-                "contact phone is 000-0000-0000",
-                "check this url for more info: sample.com"
-              ]
-            }
+          "bot": [
+            "To install this on your website, clone the repository and then deploy the build directory files to your server.\nFor more details, follow the link below:\n",
+            "https://github.com/maplemanju/faq-chat"
           ]
         },
         {
-          "bot": "choice2: this is the end"
+          "bot": [
+            "Check out Faq Chat App's github repository\n",
+            "https://github.com/maplemanju/faq-chat"
+          ]
         }
       ]
     },
     {
-      "bot": "question2: here are your choices",
+      "bot": "Which would you like to know about?",
       "choices": [
-        "choice1",
-        "choice2"
+        "Blogs and articles",
+        "Profile"
       ],
       "sub": [
         {
-          "bot": "choice1 was chosen"
+          "bot": [
+            "My blogs and articles really reflects my lifestyle. Since I live in Japan, most of what I write is Japanese related. Such as Japanese website's UI practices, travel and lifestyle, video games and manga. \n",
+            "https://amayadori.cloud"
+          ]
         },
         {
-          "bot": "choice2 was chosen"
+          "bot": [
+            "Here is my Profile\n",
+            "https://profile.amayadori.cloud"
+          ]
         }
       ]
     },
     {
-      "bot": "question3: this is a sentence"
+      "bot": "Have a nice time!"
     }
   ]
 }
