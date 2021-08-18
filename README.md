@@ -1,7 +1,57 @@
-## Greetings!
+# Greetings!
 
-This rule-based chat bot created in React.
+This is rule-based chat bot created in React.\
 See the sample on https://faq-chat.amayadori.cloud/
+
+# Customizing
+
+## Icon
+
+To change the icons, replace the images on `./images/`
+header-avatar.png for the header icon and\
+chatter-avatar.png for the icon beside the chat balloon.
+
+## Theme colors
+
+On the index.css file, change the declared colors variables on root.
+
+
+## Chat question and answer strings
+
+The strings are on the `./ChatStrings.json` file.\
+**bot** key is the script for the bot's chat.\
+**choices** key contains an array for the choices after corresponding bot key\
+**sub** key is an array of objects containing the next bot-choices after the selection on `choices`. 
+
+Choices and Sub will always have the same length, if not, some selection will produce null answers.
+
+sample:
+
+```
+{
+  "bot": "First prompt to show up",
+  "choices": [
+    "question1 here",
+    "question2 here"
+  ],
+  "sub": [
+    {
+      "bot": "you chose question1: here are your choices",
+      "choices": [
+        "choice1",
+        "choice2"
+      ],
+      "sub": [... two objects here for two choices]
+    },
+    {
+      "bot": "you chose question2: no more choices here"
+    },
+  ]
+}
+```
+
+=====================
+
 
 # Getting Started with Create React App
 
