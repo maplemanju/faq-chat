@@ -1,7 +1,6 @@
 {
   "bot": [
-    "Hello, I am Maya from Amayadori.cloud.\nThis chatbot is rule-based which means that all of my responses will be based on the selection that will be provided for you.\n",
-    "Please choose one!"
+    "Hello, I am Maya from Amayadori.cloud.\nThis chatbot is rule-based which means that all of my responses will be based on the selection that will be provided for you.\nPlease choose one!"
   ],
   "choices": [
     "Where is this chat-bot app made from?",
@@ -18,13 +17,14 @@
       "sub": [
         {
           "bot": [
-            "To install this on your website, clone the repository and then deploy the build directory files to your server.\nFor more details, follow the link below:\n",
+            "To install this on your website, clone the repository and then deploy the build directory files to your server.",
+            "For more details, follow the link below:",
             "https://github.com/maplemanju/faq-chat"
           ]
         },
         {
           "bot": [
-            "Check out Faq Chat App's github repository\n",
+            "Check out Faq Chat App's github repository",
             "https://github.com/maplemanju/faq-chat"
           ]
         }
@@ -39,13 +39,13 @@
       "sub": [
         {
           "bot": [
-            "My blogs and articles really reflects my lifestyle. Since I live in Japan, most of what I write is Japanese related. Such as Japanese website's UI practices, travel and lifestyle, video games and manga. \n",
+            "My blogs and articles really reflects my lifestyle. Since I live in Japan, most of what I write is Japanese related. Such as Japanese website's UI practices, travel and lifestyle, video games and manga.",
             "https://amayadori.cloud"
           ]
         },
         {
           "bot": [
-            "Here is my Profile\n",
+            "Here is my Profile",
             "https://profile.amayadori.cloud"
           ]
         }

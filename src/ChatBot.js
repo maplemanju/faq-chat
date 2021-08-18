@@ -26,6 +26,19 @@ function ChatArea(props) {
    element.scrollIntoView({behavior: behavior, block: "end"})
   }
 
+  const addLink = (text) => {
+    if(typeof text === 'string') {
+      const URL_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+      let parts = text.split(" ")
+      for (let i = 0; i < parts.length; i ++) {
+        parts[i] = URL_REGEX.test(parts[i]) ? <a key={'link' + i} href={parts[i]} target="_blank">{parts[i]}</a> : <span>{parts[i] + " "}</span>
+      }
+      return parts
+    } else {
+      return text
+    }
+  }
+
   return (
     <div className="chat_area">
     {chats.map((item, i, chat_ar) => {
@@ -48,7 +61,7 @@ function ChatArea(props) {
               node.addEventListener("transitionend", done, false);
             }}>
             <div>
-              { isLoading ? loader : item }
+              { isLoading ? loader : addLink(item) }
             </div>
             </CSSTransition>
             </SwitchTransition>
@@ -100,8 +113,7 @@ export default class ChatBot extends React.Component {
   }
 
   scrollToBottom(element, behavior) {
-   element.scrollIntoView({behavior: behavior, block: "end"});
-  // element.scroll({ top: -10, left: 0, behavior: behavior });
+    element.scrollIntoView({behavior: behavior, block: "end"});
   }  
 
   choiceList(choices, chosen = -1, disableAll = false) {
@@ -145,7 +157,7 @@ export default class ChatBot extends React.Component {
 
     //push bot chat
     if(Array.isArray(selection.bot)) {
-      selection.bot.map((botItem, k, arr) => {
+      selection.bot.forEach((botItem, k, arr) => {
         setTimeout(() => {
           chats.push(botItem);
           chatType.push('support');
