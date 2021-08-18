@@ -22,7 +22,7 @@ function ChatArea(props) {
   const {loading, chatType, chats, newRef} = props;
   const loader = <span className="loader"></span>;
 
-  let scrollToBottom = (element, behavior) => {
+  const scrollToBottom = (element, behavior) => {
    element.scrollIntoView({behavior: behavior, block: "end"})
   }
 
@@ -31,7 +31,7 @@ function ChatArea(props) {
       const URL_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
       let parts = text.split(" ")
       for (let i = 0; i < parts.length; i ++) {
-        parts[i] = URL_REGEX.test(parts[i]) ? <a key={'link' + i} href={parts[i]} target="_blank">{parts[i]}</a> : <span>{parts[i] + " "}</span>
+        parts[i] = URL_REGEX.test(parts[i]) ? <a key={'link' + i} href={parts[i]} target="_blank" rel="noreferrer">{parts[i]}</a> : <span>{parts[i] + " "}</span>
       }
       return parts
     } else {
