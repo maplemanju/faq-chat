@@ -19,11 +19,14 @@ function Top(props) {
 }
 
 function ChatArea(props) {
-  const {loading, chatType, chats, newRef} = props;
+  const {loading, chatType, chats, newRef, chatAreaRef} = props;
   const loader = <span className="loader"></span>;
 
   const scrollToBottom = (element, behavior) => {
-   element.scrollIntoView({behavior: behavior, block: "end"})
+    chatAreaRef.current.scrollTo({
+      top: element.offsetTop,
+      behavior: behavior,
+    })
   }
 
   const addLink = (text) => {
@@ -31,7 +34,7 @@ function ChatArea(props) {
       const URL_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
       let parts = text.split(" ")
       for (let i = 0; i < parts.length; i ++) {
-        parts[i] = URL_REGEX.test(parts[i]) ? <a key={'link' + i} href={parts[i]} target="_blank" rel="noreferrer">{parts[i]}</a> : <span>{parts[i] + " "}</span>
+        parts[i] = URL_REGEX.test(parts[i]) ? <a key={'link' + i} href={parts[i]} target="_blank" rel="noreferrer">{parts[i]}</a> : parts[i] + " "
       }
       return parts
     } else {
@@ -40,7 +43,7 @@ function ChatArea(props) {
   }
 
   return (
-    <div className="chat_area">
+    <div className="chat_area" ref={chatAreaRef}>
     {chats.map((item, i, chat_ar) => {
       const chatter = chatType[i];
       const isLoading = loading && chat_ar.length - 1 === i;
@@ -88,6 +91,7 @@ export default class ChatBot extends React.Component {
     super(props);
     const data = qAndA;
     this.newMsgref = React.createRef();
+    this.chatArea = React.createRef();
     this.state = {
       data: data, // main string data
       selection: data, // current index on the data
@@ -113,7 +117,10 @@ export default class ChatBot extends React.Component {
   }
 
   scrollToBottom(element, behavior) {
-    element.scrollIntoView({behavior: behavior, block: "end"});
+    this.chatArea.current.scrollTo({
+      top: element.offsetTop,
+      behavior: behavior,
+    })
   }  
 
   choiceList(choices, chosen = -1, disableAll = false) {
@@ -214,7 +221,7 @@ export default class ChatBot extends React.Component {
     return (
       <div className="chatbody">
       <Top/>
-      <ChatArea chats={chats} loading={loading} chatType={chatType} newRef={this.newMsgref}/>
+      <ChatArea chats={chats} loading={loading} chatType={chatType} newRef={this.newMsgref} chatAreaRef={this.chatArea}/>
       <div className="bottom">
         <RepeatButton endOfChat={endOfChat} disabled={disableClick} handleClick={() => this.handleClick(-1)} />
       </div>
