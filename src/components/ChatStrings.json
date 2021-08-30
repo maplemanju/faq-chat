@@ -34,7 +34,8 @@
       "bot": "Which would you like to know about?",
       "choices": [
         "Blogs and articles",
-        "Profile"
+        "Profile",
+        "Works List"
       ],
       "sub": [
         {
@@ -47,6 +48,12 @@
           "bot": [
             "Here is my Profile",
             "https://profile.amayadori.cloud"
+          ]
+        },
+        {
+          "bot": [
+            "Here is a list of my works",
+            "https://profile.amayadori.cloud/works"
           ]
         }
       ]

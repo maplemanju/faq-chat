@@ -1,6 +1,6 @@
 import smoothscroll from 'smoothscroll-polyfill';
 import React from 'react';
-import './index.css';
+import '../index.css';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import BotStrings from "./BotStrings";
 import qAndA from './ChatStrings'
@@ -31,7 +31,7 @@ function ChatArea(props) {
 
   const addLink = (text) => {
     if(typeof text === 'string') {
-      const URL_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+      const URL_REGEX = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)/;
       let parts = text.split(" ")
       for (let i = 0; i < parts.length; i ++) {
         parts[i] = URL_REGEX.test(parts[i]) ? <a key={'link' + i} href={parts[i]} target="_blank" rel="noreferrer">{parts[i]}</a> : parts[i] + " "

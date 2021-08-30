@@ -1,6 +1,6 @@
 import React from 'react';
-import headerAvatar from './images/header-avatar.png'
-import chatterAvatar from './images/chatter-avatar.png'
+import headerAvatar from '../images/header-avatar.png'
+import chatterAvatar from '../images/chatter-avatar.png'
 
 export default function BotStrings(props) {
   const { needed } = props;
